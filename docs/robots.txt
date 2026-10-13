@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /demo/app.html
+
+Sitemap: https://lifeintheuktestcoach.co.uk/sitemap.xml

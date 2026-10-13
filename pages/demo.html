@@ -1,0 +1,47 @@
+<div class="wrap page-head">
+  <p class="eyebrow">Interactive demo</p>
+  <h1>Try Life in the UK Test Prep in your browser</h1>
+  <p class="lead">This is a working preview of the Android app. Answer real practice questions, see the explanations, open the study notes and take a short timed mock test. Press <b>Play tour</b> for a guided walkthrough.</p>
+</div>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="demo-frame">
+      <iframe id="demo" src="/demo/app.html" title="Interactive demo of the Life in the UK Test Prep app" loading="lazy"></iframe>
+    </div>
+    <p class="note" style="margin-top:12px">The demo uses 13 sample questions and a 6-question mock with a 6-minute timer. The app has over 770 practice questions and full 24-question, 45-minute mock tests. <a href="/demo/app.html">Open the demo full screen</a>.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What to try</p>
+      <h2>Five things to try in the demo</h2>
+    </div>
+    <ol class="steps steps-5">
+      <li><h3>Get a question wrong</h3><p>Open Practice, pick a chapter and choose a wrong answer on purpose. You see your answer, the correct one and why.</p></li>
+      <li><h3>Read about it</h3><p>Tap "Read about this" to open the study note for that section, with the fact you missed at the top.</p></li>
+      <li><h3>Check your plan</h3><p>Go back to Home. Your plan for today now starts with the section you found hardest.</p></li>
+      <li><h3>Take a mock test</h3><p>Start a mock from the Mocks tab. The timer runs and you get no feedback until you finish.</p></li>
+      <li><h3>See your progress</h3><p>Your readiness score and chapter mastery update as you answer.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap final">
+    <h2>Ready for the full app?</h2>
+    <p>Get over 770 practice questions, full mock tests, study notes and a daily plan. Free to download.</p>
+    <a class="badge-link" href="https://play.google.com/store/apps/details?id=com.myday.litu"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="212" height="82" loading="lazy"></a>
+    <p><a href="/practice-questions/">Or try 20 free practice questions →</a></p>
+  </div>
+</section>
+
+<script>
+  // The demo reports its height so the frame fits it without an inner scrollbar.
+  addEventListener('message', e => {
+    if (e.origin !== location.origin || !e.data || typeof e.data.demoHeight !== 'number') return;
+    document.getElementById('demo').style.height = Math.max(640, e.data.demoHeight) + 'px';
+  });
+</script>

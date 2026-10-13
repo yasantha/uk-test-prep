@@ -1,0 +1,502 @@
+[
+ {
+  "id": "Q-CH2-UK-002",
+  "stem": "Which countries make up Great Britain?",
+  "exp": "Great Britain is the island of England, Scotland and Wales. The United Kingdom adds Northern Ireland.",
+  "ch": 2,
+  "section": "What is the UK?",
+  "opts": [
+   {
+    "t": "England, Scotland and Wales",
+    "ok": true
+   },
+   {
+    "t": "England, Scotland, Wales and Northern Ireland",
+    "ok": false
+   },
+   {
+    "t": "England and Wales only",
+    "ok": false
+   },
+   {
+    "t": "England, Wales and Northern Ireland",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-EAR-003",
+  "stem": "In which year did the Romans, under Emperor Claudius, invade Britain?",
+  "exp": "Julius Caesar tried to invade in 55 BC but did not stay. The Romans returned under Emperor Claudius in AD 43 and ruled for about 400 years.",
+  "ch": 3,
+  "section": "Early Britain",
+  "opts": [
+   {
+    "t": "AD 43",
+    "ok": true
+   },
+   {
+    "t": "55 BC",
+    "ok": false
+   },
+   {
+    "t": "AD 410",
+    "ok": false
+   },
+   {
+    "t": "AD 789",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-MID-001",
+  "stem": "Which Scottish king defeated the English at the Battle of Bannockburn in 1314?",
+  "exp": "Robert the Bruce defeated the English at Bannockburn in 1314. Scotland stayed unconquered by the English.",
+  "ch": 3,
+  "section": "The Middle Ages",
+  "opts": [
+   {
+    "t": "Robert the Bruce",
+    "ok": true
+   },
+   {
+    "t": "Kenneth MacAlpin",
+    "ok": false
+   },
+   {
+    "t": "James IV",
+    "ok": false
+   },
+   {
+    "t": "Macbeth",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-MID-003",
+  "stem": "Which king was made to agree to the Magna Carta in 1215?",
+  "exp": "Nobles forced King John to agree to the Magna Carta in 1215. It showed that even the king had to obey the law.",
+  "ch": 3,
+  "section": "The Middle Ages",
+  "opts": [
+   {
+    "t": "King John",
+    "ok": true
+   },
+   {
+    "t": "Henry VIII",
+    "ok": false
+   },
+   {
+    "t": "Richard III",
+    "ok": false
+   },
+   {
+    "t": "Edward I",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-TUD-003",
+  "stem": "In 1588, which fleet did the English defeat?",
+  "exp": "The English defeated the Spanish Armada, a large fleet of ships sent to invade England and bring back the Catholic faith.",
+  "ch": 3,
+  "section": "The Tudors and Stuarts",
+  "opts": [
+   {
+    "t": "The Spanish Armada",
+    "ok": true
+   },
+   {
+    "t": "The French navy",
+    "ok": false
+   },
+   {
+    "t": "The Dutch fleet",
+    "ok": false
+   },
+   {
+    "t": "The Viking fleet",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-GLO-001",
+  "stem": "Who is usually thought of as the first Prime Minister?",
+  "exp": "Sir Robert Walpole was the first politician to lead the government as Prime Minister. He held the post from 1721 to 1742.",
+  "ch": 3,
+  "section": "A global power",
+  "opts": [
+   {
+    "t": "Sir Robert Walpole",
+    "ok": true
+   },
+   {
+    "t": "Winston Churchill",
+    "ok": false
+   },
+   {
+    "t": "William Pitt",
+    "ok": false
+   },
+   {
+    "t": "Oliver Cromwell",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-C20-001",
+  "stem": "When did fighting in the First World War end?",
+  "exp": "The First World War ended at 11 am on 11 November 1918. People remember those who died on this date each year.",
+  "ch": 3,
+  "section": "The 20th century",
+  "opts": [
+   {
+    "t": "11 November 1918",
+    "ok": true
+   },
+   {
+    "t": "6 June 1944",
+    "ok": false
+   },
+   {
+    "t": "11 November 1914",
+    "ok": false
+   },
+   {
+    "t": "8 May 1945",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-C20-003",
+  "stem": "Who became Prime Minister in 1940 and led Britain in the Second World War?",
+  "exp": "Winston Churchill became Prime Minister in 1940. His speeches helped people stay strong when Britain stood alone against Germany.",
+  "ch": 3,
+  "section": "The 20th century",
+  "opts": [
+   {
+    "t": "Winston Churchill",
+    "ok": true
+   },
+   {
+    "t": "Clement Attlee",
+    "ok": false
+   },
+   {
+    "t": "Neville Chamberlain",
+    "ok": false
+   },
+   {
+    "t": "Margaret Thatcher",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-POS-001",
+  "stem": "Who was the first woman to be Prime Minister of the UK?",
+  "exp": "Margaret Thatcher became the UK's first woman Prime Minister in 1979. She led the government until 1990.",
+  "ch": 3,
+  "section": "Britain since 1945",
+  "opts": [
+   {
+    "t": "Margaret Thatcher",
+    "ok": true
+   },
+   {
+    "t": "Barbara Castle",
+    "ok": false
+   },
+   {
+    "t": "Shirley Williams",
+    "ok": false
+   },
+   {
+    "t": "Betty Boothroyd",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH3-POS-003",
+  "stem": "Who invented the World Wide Web?",
+  "exp": "Sir Tim Berners-Lee, a British scientist, created the World Wide Web. Information was first shared on it in 1990.",
+  "ch": 3,
+  "section": "Britain since 1945",
+  "opts": [
+   {
+    "t": "Sir Tim Berners-Lee",
+    "ok": true
+   },
+   {
+    "t": "Alan Turing",
+    "ok": false
+   },
+   {
+    "t": "John Logie Baird",
+    "ok": false
+   },
+   {
+    "t": "James Goodfellow",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH4-REL-001",
+  "stem": "Who is the patron saint of Scotland?",
+  "exp": "St Andrew is the patron saint of Scotland and St Andrew's Day is 30 November. St David is for Wales, St George for England and St Patrick for Northern Ireland.",
+  "ch": 4,
+  "section": "Religion",
+  "opts": [
+   {
+    "t": "St Andrew",
+    "ok": true
+   },
+   {
+    "t": "St David",
+    "ok": false
+   },
+   {
+    "t": "St George",
+    "ok": false
+   },
+   {
+    "t": "St Patrick",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH4-CUS-002",
+  "stem": "What is New Year's Eve called in Scotland?",
+  "exp": "In Scotland, 31 December is called Hogmanay. For some Scottish people it is a bigger celebration than Christmas.",
+  "ch": 4,
+  "section": "Customs and traditions",
+  "opts": [
+   {
+    "t": "Hogmanay",
+    "ok": true
+   },
+   {
+    "t": "Burns Night",
+    "ok": false
+   },
+   {
+    "t": "Ceilidh",
+    "ok": false
+   },
+   {
+    "t": "Eisteddfod",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH4-SPO-002",
+  "stem": "Which is the oldest tennis tournament in the world?",
+  "exp": "The Wimbledon Championships began in 1877. It is the oldest tennis tournament in the world and the only major one played on grass.",
+  "ch": 4,
+  "section": "Sport",
+  "opts": [
+   {
+    "t": "Wimbledon",
+    "ok": true
+   },
+   {
+    "t": "The US Open",
+    "ok": false
+   },
+   {
+    "t": "The French Open",
+    "ok": false
+   },
+   {
+    "t": "The Australian Open",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH4-ART-003",
+  "stem": "Who wrote Oliver Twist?",
+  "exp": "Charles Dickens wrote many famous novels, including Oliver Twist and Great Expectations. They show the lives of poor people in the 19th century.",
+  "ch": 4,
+  "section": "Arts and culture",
+  "opts": [
+   {
+    "t": "Charles Dickens",
+    "ok": true
+   },
+   {
+    "t": "Thomas Hardy",
+    "ok": false
+   },
+   {
+    "t": "Jane Austen",
+    "ok": false
+   },
+   {
+    "t": "Sir Arthur Conan Doyle",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH4-PLA-003",
+  "stem": "Where is the Giant's Causeway?",
+  "exp": "The Giant's Causeway is on the north-east coast of Northern Ireland. It is made of thousands of six-sided rock columns.",
+  "ch": 4,
+  "section": "Places of interest",
+  "opts": [
+   {
+    "t": "Northern Ireland",
+    "ok": true
+   },
+   {
+    "t": "Scotland",
+    "ok": false
+   },
+   {
+    "t": "Wales",
+    "ok": false
+   },
+   {
+    "t": "England",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH5-DEM-001",
+  "stem": "What is the minimum age to vote in a UK general election?",
+  "exp": "You must be 18 or over to vote in elections to the UK Parliament. In some elections in Scotland and Wales, people can vote at 16.",
+  "ch": 5,
+  "section": "The development of British democracy",
+  "opts": [
+   {
+    "t": "18",
+    "ok": true
+   },
+   {
+    "t": "16",
+    "ok": false
+   },
+   {
+    "t": "21",
+    "ok": false
+   },
+   {
+    "t": "25",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH5-GOV-001",
+  "stem": "What is the Prime Minister's official home in London?",
+  "exp": "The Prime Minister lives and works at 10 Downing Street. The Prime Minister also has a country house called Chequers.",
+  "ch": 5,
+  "section": "The government",
+  "opts": [
+   {
+    "t": "10 Downing Street",
+    "ok": true
+   },
+   {
+    "t": "11 Downing Street",
+    "ok": false
+   },
+   {
+    "t": "Buckingham Palace",
+    "ok": false
+   },
+   {
+    "t": "Lambeth Palace",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH5-INT-002",
+  "stem": "What is the Commonwealth?",
+  "exp": "The Commonwealth is a voluntary association of countries. Most were once part of the British Empire, and the monarch is its head.",
+  "ch": 5,
+  "section": "The UK and international institutions",
+  "opts": [
+   {
+    "t": "An association of countries, most once part of the British Empire",
+    "ok": true
+   },
+   {
+    "t": "A group of European countries that trade freely",
+    "ok": false
+   },
+   {
+    "t": "A military alliance of North Atlantic countries",
+    "ok": false
+   },
+   {
+    "t": "The parliament of the four UK countries",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH5-LAW-002",
+  "stem": "How many people sit on a jury in England, Wales and Northern Ireland?",
+  "exp": "A jury has 12 people in England, Wales and Northern Ireland. In Scotland a jury has 15 people.",
+  "ch": 5,
+  "section": "Respecting the law",
+  "opts": [
+   {
+    "t": "12",
+    "ok": true
+   },
+   {
+    "t": "15",
+    "ok": false
+   },
+   {
+    "t": "10",
+    "ok": false
+   },
+   {
+    "t": "8",
+    "ok": false
+   }
+  ]
+ },
+ {
+  "id": "Q-CH5-ROL-002",
+  "stem": "What is the electoral register?",
+  "exp": "To vote, your name must be on the electoral register. You can register online or through your local council.",
+  "ch": 5,
+  "section": "Your role in the community",
+  "opts": [
+   {
+    "t": "The official list of people who can vote",
+    "ok": true
+   },
+   {
+    "t": "A list of everyone who pays tax",
+    "ok": false
+   },
+   {
+    "t": "A record of all MPs",
+    "ok": false
+   },
+   {
+    "t": "A list of council employees",
+    "ok": false
+   }
+  ]
+ }
+]

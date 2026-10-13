@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Life in the UK Test Prep: interactive demo</title>
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://lifeintheuktestcoach.co.uk/demo/">
+<link rel="icon" href="/assets/img/app-icon.svg" type="image/svg+xml">
+<style>
+@font-face { font-family: "Plus Jakarta Sans"; src: url("/assets/fonts/plus-jakarta-sans.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("/assets/fonts/atkinson-hyperlegible-regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("/assets/fonts/atkinson-hyperlegible-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+html, body { margin: 0; }
+</style>
+<style>
+/* Layout: a working phone on the left, a numbered tour script on the right; "Video mode" centres the phone with captions for screen recording. */
+:root {
+  --page: #EEF3F1;
+  --panel: #FFFFFF;
+  --ink: #16323A;
+  --muted: #4E6A6E;
+  --line: #D3E0DD;
+  --teal: #0F6E6E;
+  --teal-soft: #E3F0EF;
+  --amber: #FFC24B;
+  --coral: #F2765A;
+  --display: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  /* The phone keeps the app's own light theme in both page themes. */
+  --app-bg: #FAF7F1;
+  --app-card: #FFFFFF;
+  --app-ink: #16323A;
+  --app-muted: #55686B;
+  --app-line: #E2E4DF;
+  --app-chip: #EEF0EC;
+  --good: #1E7A4C;
+  --good-soft: #E6F3EA;
+  --bad: #B3261E;
+  --bad-soft: #FBE4E1;
+  --cream: #FFF4E0;
+  --plum-soft: #EEE7F6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #0E1C1F; --panel: #15292D; --ink: #E7F0EE; --muted: #A5BCBA; --line: #2A4347;
+    --teal-soft: #1C3A3B; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0E1C1F; --panel: #15292D; --ink: #E7F0EE; --muted: #A5BCBA; --line: #2A4347;
+  --teal-soft: #1C3A3B; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--page); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 40px; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: start; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; justify-items: center; gap: 24px; } }
+
+/* ---------- Tour panel ---------- */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: grid; gap: 18px; width: 100%; max-width: 560px; }
+.eyebrow { font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+:root:not([data-theme="light"]) .eyebrow { }
+.panel h1 { font-family: var(--display); font-weight: 800; font-size: 30px; line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -.02em; }
+.panel p { margin: 0; color: var(--muted); max-width: 62ch; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 9px 16px; font-family: var(--display); font-weight: 700; font-size: 14px; }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+a.btn { color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; }
+.btn:hover { border-color: var(--teal); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 10px 12px; border-radius: 12px; cursor: pointer; }
+.steps li::before { content: counter(s); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 12px; background: var(--teal-soft); color: var(--teal); font-variant-numeric: tabular-nums; }
+.steps li strong { font-family: var(--display); font-size: 14px; display: block; }
+.steps li span { color: var(--muted); font-size: 13.5px; }
+.steps li.on { background: var(--teal-soft); }
+.steps li.on::before { background: var(--teal); color: #fff; }
+.steps li.done::before { content: "✓"; }
+.now { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 6px; }
+.now b { font-family: var(--display); }
+.fine { font-size: 12.5px; color: var(--muted); }
+
+/* ---------- Phone ---------- */
+.stage { display: grid; gap: 14px; justify-items: center; }
+.phone { width: min(372px, calc(100vw - 40px)); aspect-ratio: 372 / 780; background: #0B1214; border-radius: 46px; padding: 12px; box-shadow: 0 30px 60px rgba(10, 30, 32, .28); position: relative; }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: var(--app-bg); color: var(--app-ink); font-family: var(--body); font-size: 14px; display: flex; flex-direction: column; }
+.sb { height: 34px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 12.5px; color: var(--app-muted); font-variant-numeric: tabular-nums; }
+.sb i { font-style: normal; letter-spacing: 2px; }
+.view { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 6px 16px 16px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: none; }
+.view::-webkit-scrollbar { display: none; }
+.nav { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--app-line); background: var(--app-card); padding: 6px 4px 12px; }
+.nav button { border: 0; background: none; display: grid; justify-items: center; gap: 2px; font-size: 11.5px; color: var(--app-muted); padding: 4px 0; }
+.nav button svg { width: 22px; height: 22px; padding: 2px 14px; box-sizing: content-box; border-radius: 999px; }
+.nav button.on { color: var(--teal); font-weight: 700; }
+.nav button.on svg { background: var(--teal-soft); }
+.h { font-family: var(--display); font-weight: 800; letter-spacing: -.01em; margin: 0; color: var(--app-ink); }
+.card { background: var(--app-card); border: 1px solid var(--app-line); border-radius: 18px; padding: 14px; display: grid; gap: 8px; }
+.abtn { border: 0; border-radius: 999px; padding: 12px 16px; font-family: var(--display); font-weight: 700; font-size: 14px; background: var(--teal); color: #fff; width: 100%; }
+.abtn.ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
+.abtn.text { background: none; color: var(--teal); width: auto; padding: 8px 10px; }
+.abtn[disabled] { background: var(--app-chip); color: #8A9694; }
+.muted { color: var(--app-muted); }
+.small { font-size: 12.5px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 36px; }
+.icon { border: 0; background: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--app-ink); }
+.icon svg { width: 22px; height: 22px; }
+.bar { height: 6px; background: var(--app-chip); border-radius: 99px; overflow: hidden; }
+.bar > b { display: block; height: 100%; background: var(--teal); border-radius: 99px; transition: width .4s; }
+
+/* welcome */
+.welcome { flex: 1; display: flex; flex-direction: column; margin: -6px -16px -16px; }
+.welcome .hero { background: var(--teal); flex: 1.05; display: grid; place-items: center; }
+.welcome .body { flex: 1; padding: 22px; display: flex; flex-direction: column; gap: 10px; text-align: center; }
+.welcome h2 { font-family: var(--display); font-size: 26px; margin: 8px 0 0; }
+.dots { display: flex; gap: 6px; justify-content: center; margin-top: auto; }
+.dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--app-line); }
+.dots span.on { background: var(--teal); }
+.disc { font-size: 11px; color: var(--app-muted); text-align: center; }
+
+/* home */
+.hello { display: flex; align-items: center; gap: 10px; }
+.tile { width: 42px; height: 42px; border-radius: 12px; background: var(--teal); display: grid; place-items: center; flex: none; }
+.ready { background: var(--teal); color: #fff; border-radius: 22px; padding: 16px; display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; }
+.ready .h { color: #fff; font-size: 17px; line-height: 1.2; }
+.ready p { margin: 2px 0 0; font-size: 12.5px; color: #D5E9E6; }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--amber); color: var(--app-ink); font-family: var(--display); font-weight: 700; font-size: 12.5px; padding: 5px 10px; border-radius: 10px; margin-top: 8px; border: 0; }
+.ring text { font-family: var(--display); font-weight: 800; fill: #fff; }
+.plan li { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+.plan ol { list-style: none; margin: 0; padding: 0; }
+.plan .n { width: 26px; height: 26px; border-radius: 50%; background: var(--teal-soft); display: grid; place-items: center; font-weight: 700; font-size: 12px; }
+.plan li button { border: 0; background: none; text-align: left; padding: 0; font-size: 13.5px; color: var(--app-ink); }
+.row { display: flex; align-items: center; gap: 12px; }
+.round { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tiles button { border: 0; border-radius: 18px; padding: 16px 14px; text-align: left; display: grid; gap: 6px; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--app-ink); }
+
+/* practice hub */
+.chap { display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: center; text-align: left; width: 100%; border: 1px solid var(--app-line); background: var(--app-card); border-radius: 16px; padding: 12px; color: var(--app-ink); }
+.num { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 17px; border-bottom: 3px solid currentColor; }
+.chap b { font-family: var(--display); font-size: 13.5px; display: block; }
+.pct { font-family: var(--display); font-weight: 800; font-size: 13px; font-variant-numeric: tabular-nums; }
+
+/* question */
+.stem { font-family: var(--display); font-weight: 800; font-size: 19px; line-height: 1.3; margin: 4px 0 2px; text-wrap: pretty; }
+.opt { width: 100%; text-align: left; border: 1.5px solid var(--app-line); background: #EFF1EC; border-radius: 16px; padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14.5px; color: var(--app-ink); }
+.opt .tag { font-family: var(--display); font-weight: 700; font-size: 12px; white-space: nowrap; }
+.opt.sel { border-color: var(--teal); background: var(--teal-soft); }
+.opt.right { border-color: var(--good); background: var(--good-soft); }
+.opt.right .tag { color: var(--good); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .tag { color: var(--bad); }
+.opt.dim { opacity: .75; }
+.radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--app-muted); flex: none; display: grid; place-items: center; }
+.opt.sel .radio { border-color: var(--teal); }
+.opt.sel .radio::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+.sheet { margin: auto -16px -16px; background: var(--app-card); border-radius: 26px 26px 0 0; box-shadow: 0 -8px 24px rgba(20, 40, 40, .1); padding: 10px 18px 18px; display: grid; gap: 10px; animation: up .3s ease-out; }
+.sheet::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--app-line); justify-self: center; }
+@keyframes up { from { transform: translateY(40px); opacity: .4; } to { transform: none; opacity: 1; } }
+.verdict { font-family: var(--display); font-weight: 800; font-size: 19px; display: flex; align-items: center; gap: 8px; }
+.foot { margin-top: auto; display: flex; gap: 8px; align-items: center; }
+
+/* notes */
+.missed { background: var(--cream); border-radius: 16px; padding: 12px 14px; display: grid; gap: 4px; }
+.missed b { font-family: var(--display); }
+.facts { background: var(--cream); border-radius: 16px; padding: 12px 14px; }
+.facts ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px; }
+.note p { margin: 0 0 8px; font-size: 14px; line-height: 1.55; }
+
+/* mock */
+.timer { background: var(--app-chip); border-radius: 10px; padding: 5px 10px; font-family: var(--display); font-weight: 800; font-variant-numeric: tabular-nums; display: flex; gap: 6px; align-items: center; }
+.timer.low { background: var(--bad-soft); color: var(--bad); }
+.score { font-family: var(--display); font-weight: 800; font-size: 54px; text-align: center; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.pill { justify-self: center; border-radius: 999px; padding: 4px 14px; font-family: var(--display); font-weight: 700; font-size: 14px; }
+.pill.pass { background: var(--good-soft); color: var(--good); border: 1.5px solid var(--good); }
+.pill.fail { background: var(--bad-soft); color: var(--bad); border: 1.5px solid var(--bad); }
+.brk { display: grid; grid-template-columns: 1fr 120px 34px; gap: 10px; align-items: center; font-size: 13px; }
+.brk .bar { height: 7px; }
+.tip { background: var(--cream); border-radius: 16px; padding: 12px; display: flex; gap: 10px; font-size: 13.5px; }
+
+/* end card */
+.end { position: absolute; inset: 0; background: var(--teal); color: #fff; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; padding: 30px; z-index: 5; animation: fade .5s; }
+.end h2 { font-family: var(--display); font-size: 28px; line-height: 1.1; margin: 0; }
+.end .soon { background: var(--amber); color: var(--app-ink); font-family: var(--display); font-weight: 800; border-radius: 999px; padding: 10px 18px; text-decoration: none; }
+.end .soon:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.end .avail { font-family: var(--display); font-weight: 700; font-size: 14px; color: #fff; }
+.end small { color: #CFE6E3; font-size: 11.5px; max-width: 26ch; }
+@keyframes fade { from { opacity: 0; } }
+
+/* tour overlays */
+.ring-hl { position: absolute; border: 3px solid var(--amber); border-radius: 18px; box-shadow: 0 0 0 9999px rgba(10, 30, 32, .28); pointer-events: none; z-index: 4; transition: all .35s ease; }
+.tap { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: rgba(255, 194, 75, .75); border: 2px solid #fff; pointer-events: none; z-index: 6; animation: tap .55s ease-out forwards; }
+@keyframes tap { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+.caption { width: min(372px, calc(100vw - 40px)); min-height: 64px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; font-size: 15px; line-height: 1.4; }
+.caption b { font-family: var(--display); display: block; font-size: 16px; }
+.toast { position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%); background: var(--app-ink); color: #fff; border-radius: 12px; padding: 8px 14px; font-size: 12.5px; z-index: 7; white-space: nowrap; }
+
+/* video mode: phone and captions only, on the brand colour */
+body.video { background: var(--teal); }
+body.video .wrap { grid-template-columns: 1fr; justify-items: center; }
+body.video .panel { display: none; }
+body.video .caption { background: #fff; color: var(--app-ink); border: 0; font-size: 17px; }
+body.video .exitv { display: inline-flex; }
+.exitv { display: none; position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; background: rgba(0, 0, 0, .35); color: #fff; border: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <div class="phone"><div class="screen" id="screen"></div></div>
+    <div class="caption" id="caption" aria-live="polite"><b>Try it yourself</b>Tap anything in the phone, or press Play tour.</div>
+  </div>
+
+  <section class="panel" aria-label="Tour">
+    <div class="eyebrow">Interactive demo</div>
+    <h1>Life in the UK Test Prep</h1>
+    <p>A working preview of the Android app with real questions from its bank. Press <b>Play tour</b> for a guided two-minute walkthrough, or tap through the phone yourself.</p>
+    <div class="controls">
+      <button class="btn primary" id="play" type="button">▶ Play tour</button>
+      <button class="btn" id="restart" type="button">Start over</button>
+      <button class="btn" id="video" type="button">Video mode</button>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.myday.litu" target="_blank" rel="noopener" style="text-decoration:none">Get it on Google Play</a>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="now" id="now"></div>
+    <p class="fine">This demo uses 13 sample questions and a 6-question mock with a 6-minute timer. The app has over 770 practice questions and full 24-question, 45-minute mocks. Independent study app. Not affiliated with the Home Office.</p>
+  </section>
+</div>
+<button class="btn exitv" id="exitv" type="button">Exit video mode</button>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById('data').textContent);
+const Q = D.q;
+const byId = Object.fromEntries(Q.map(q => [q.id, q]));
+const CH = { 1: 'Values and principles', 2: 'What is the UK?', 3: 'History', 4: 'Modern society', 5: 'Government and law' };
+const CHCOL = { 1: ['#EEE7F6', '#6A4C9C'], 2: ['#E3F0EF', '#0F6E6E'], 3: ['#FDE7E1', '#C4533A'], 4: ['#FFF1D6', '#B07A12'], 5: ['#E4EAF4', '#3B5683'] };
+const chOf = q => +q.sec[2];
+const $ = s => document.querySelector(s);
+const screenEl = $('#screen');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+
+const ICON = {
+  home: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg>',
+  practice: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2v4L12 21l7-3.8v-4L12 17z"/></svg>',
+  mocks: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>',
+  progress: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg>',
+  book: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="11" fill="#1E7A4C"/><path d="m7 12 3.2 3.2L17 8.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>',
+  cross: '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="11" fill="#B3261E"/><path d="m8 8 8 8m0-8-8 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  replay: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#C4533A" stroke-width="2.4" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24" width="22" height="22" fill="#8A5A00"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2zM9 19h6v2H9z"/></svg>'
+};
+const LOGO = '<svg viewBox="0 0 48 48" width="%s" height="%s"><path fill="#F2765A" d="M17.5 12.5 24 3l6.5 9.5z"/><rect x="17.5" y="12" width="13" height="9.5" rx="1" fill="#FFF4E0"/><rect x="19.5" y="21" width="9" height="17" rx=".5" fill="#FFF4E0"/><circle cx="24" cy="16.75" r="3.3" fill="#FFC24B"/><path d="M24 16.75V14.4m0 2.35 1.7.85" stroke="#16323A" stroke-width=".9" stroke-linecap="round"/><path d="M22 24.5v10m2-10v10m2-10v10" stroke="#9DBDB6" stroke-width=".9" stroke-linecap="round"/><path fill="#FFC24B" d="M24 37.5c-5-3.5-12.5-4-18.5-2v6c6-1.7 13.5-1.3 18.5 1.5z"/><path fill="#F2765A" d="M24 37.5c5-3.5 12.5-4 18.5-2v6c-6-1.7-13.5-1.3-18.5 1.5z"/></svg>';
+const logo = n => LOGO.replace(/%s/g, n);
+
+/* ---------- state ---------- */
+let S;
+function fresh() {
+  S = { screen: 'welcome', last: {}, answered: 0, mocks: [], run: null, mock: null, note: null, missed: null, end: false };
+}
+fresh();
+const GOAL = 20;
+const testDays = 36;
+const fmtTime = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+function mastery(ch) {
+  const qs = Q.filter(q => chOf(q) === ch);
+  const right = qs.filter(q => S.last[q.id] === true).length;
+  return qs.length ? Math.round(100 * right / qs.length) : 0;
+}
+function accuracy() {
+  const v = Object.values(S.last);
+  return v.length ? v.filter(Boolean).length / v.length : 0;
+}
+function readiness() {
+  if (!S.mocks.length) return null;
+  const m = S.mocks[S.mocks.length - 1];
+  return Math.round(100 * (0.7 * m.score / m.total + 0.3 * accuracy()));
+}
+function weakSections() {
+  const wrong = Q.filter(q => S.last[q.id] === false).map(q => q.sec);
+  const uniq = [...new Set(wrong)];
+  return uniq.length ? uniq : ['CH5-CON', 'CH3-TUD'];
+}
+function record(q, ok) { S.last[q.id] = ok; S.answered++; }
+
+/* ---------- screens ---------- */
+const navTabs = ['home', 'practice', 'mocks', 'progress'];
+function nav(active) {
+  return `<nav class="nav">${navTabs.map(t => `<button type="button" data-act="tab" data-arg="${t}" class="${t === active ? 'on' : ''}" id="nav-${t}">${ICON[t]}${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}</nav>`;
+}
+function ring(v) {
+  const r = 38, c = 2 * Math.PI * r, f = v == null ? 0 : v / 100;
+  return `<svg class="ring" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="${v == null ? 'No readiness score yet' : 'Readiness ' + v + ' percent'}"><circle cx="48" cy="48" r="${r}" stroke="rgba(255,255,255,.22)" stroke-width="10" fill="none"/><circle cx="48" cy="48" r="${r}" stroke="#FFC24B" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="${c * f} ${c}" transform="rotate(-90 48 48)"/><text x="48" y="56" text-anchor="middle" font-size="${v == null ? 26 : 22}">${v == null ? '–' : v + '%'}</text></svg>`;
+}
+const screens = {
+  welcome: () => `<div class="welcome"><div class="hero">${logo(150)}</div><div class="body">
+      <h2 class="h">Pass first time</h2><p class="muted" id="w-text">The test is 24 questions in 45 minutes. You need 18 right to pass.</p>
+      <div class="dots"><span class="on"></span><span></span><span></span></div>
+      <button class="abtn" type="button" data-act="start" id="w-go">Continue</button>
+      <p class="disc">Independent study app. Not affiliated with the Home Office.</p></div></div>`,
+
+  home: () => {
+    const r = readiness();
+    const head = r == null ? 'Take a mock test to get your score' : r >= 75 ? 'On track to pass' : 'Keep practising';
+    const sub = r == null ? 'Your readiness uses your mock results and what you have mastered.' : `Pass mark is 75% · Last mock: ${S.mocks.at(-1).score}/${S.mocks.at(-1).total}`;
+    const weak = weakSections().slice(0, 2);
+    const due = Q.filter(q => S.last[q.id] === false).length;
+    const d = new Date();
+    const hr = d.getHours();
+    return `<div class="view">
+      <div class="hello"><div class="tile">${logo(30)}</div><div><div class="small muted">${d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</div><div class="h" style="font-size:20px">${hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening'}</div></div></div>
+      <div class="ready" id="h-ready">${ring(r)}<div><div class="h">${head}</div><p>${sub}</p>
+        ${r == null ? '<button class="chip" type="button" data-act="tab" data-arg="mocks">Start mock test</button>' : `<span class="chip">Test in ${testDays} days</span>`}</div></div>
+      <div class="card" id="h-today"><div class="row" style="justify-content:space-between"><div><b>Today: ${S.answered} of ${GOAL} questions</b><div class="small muted">${S.answered >= GOAL ? "You've met today's goal." : `You're ${GOAL - S.answered} questions from today's goal.`}</div></div></div>
+        <div class="bar"><b style="width:${Math.min(100, 100 * S.answered / GOAL)}%"></b></div>
+        <button class="abtn" type="button" data-act="mixed" id="h-continue">Continue studying</button></div>
+      <div class="card plan" id="h-plan"><div class="row" style="justify-content:space-between"><b class="h" style="font-size:16px">Your plan for today</b><span class="small muted">about 10 min</span></div>
+        <div class="small muted">Built from the questions you found hardest.</div>
+        <ol>${weak.map((s, i) => `<li><span class="n">${i + 1}</span><button type="button" data-act="note" data-arg="${s}" id="plan-${i}">Read: ${esc(D.sec[s].title)}</button><span class="small muted">3 min</span></li>`).join('')}
+        <li><span class="n">${weak.length + 1}</span><button type="button" data-act="sections" data-arg="${weak.join(',')}">Practise: questions on ${weak.map(s => esc(D.sec[s].title)).join(' and ')}</button><span class="small muted">4 min</span></li></ol></div>
+      <button class="card row" type="button" data-act="review" style="text-align:left;color:inherit" id="h-review"><span class="round" style="background:#FDE7E1">${ICON.replay}</span><b style="flex:1">${due ? due + ' to review' : 'Nothing to review'}</b><span class="muted">›</span></button>
+    </div>${nav('home')}`;
+  },
+
+  practice: () => `<div class="view"><h2 class="h" style="font-size:26px;margin-top:8px">Practice</h2>
+      <div class="tiles"><button type="button" data-act="review" style="background:#FDE7E1">${ICON.replay}Review<span class="small muted" style="font-family:var(--body);font-weight:400">${Q.filter(q => S.last[q.id] === false).length} due</span></button>
+      <button type="button" data-act="mixed" style="background:#FFF1D6" id="p-mixed"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l16 16M20 4 4 20"/></svg>Mixed<span class="small muted" style="font-family:var(--body);font-weight:400">5 random</span></button></div>
+      <b class="h" style="font-size:17px">Chapters</b>
+      ${[1, 2, 3, 4, 5].map(c => `<button type="button" class="chap" ${c === 1 ? 'disabled' : `data-act="chapter" data-arg="${c}"`} id="chap-${c}">
+        <span class="num" style="background:${CHCOL[c][0]};color:${CHCOL[c][1]}">${c}</span>
+        <span><b>${CH[c]}</b>${c === 1 ? '<span class="small muted">Study only · not in the test</span>' : `<div class="bar" style="margin-top:6px"><b style="width:${mastery(c)}%;background:${CHCOL[c][1]}"></b></div>`}</span>
+        <span class="pct">${c === 1 ? '' : mastery(c) + '%'}</span></button>`).join('')}
+    </div>${nav('practice')}`,
+
+  question: () => {
+    const r = S.run, q = r.qs[r.i], done = r.checked;
+    const right = q.opts.find(o => o.ok);
+    return `<div class="view">
+      <div class="top"><button class="icon" type="button" data-act="home" aria-label="Close">${ICON.close}</button><b class="small">${r.label}${r.i + 1} of ${r.qs.length}</b><span style="width:36px"></span></div>
+      <div class="bar"><b style="width:${100 * (r.i + (done ? 1 : 0)) / r.qs.length}%"></b></div>
+      <p class="stem">${esc(q.stem)}</p>
+      ${r.order.map(k => {
+        const o = q.opts[k];
+        let cls = '', tag = '';
+        if (done) {
+          if (o.ok) { cls = 'right'; tag = `<span class="tag">Correct answer</span>${ICON.check}`; }
+          else if (k === r.pick) { cls = 'wrong'; tag = `<span class="tag">Your answer</span>${ICON.cross}`; }
+          else cls = 'dim';
+        } else if (k === r.pick) cls = 'sel';
+        return `<button type="button" class="opt ${cls}" data-act="pick" data-arg="${k}" id="opt-${k}" ${done ? 'disabled' : ''}><span>${esc(o.t)}</span>${tag}</button>`;
+      }).join('')}
+      ${done ? `<div class="sheet" id="q-sheet"><div class="verdict" style="color:${r.ok ? 'var(--good)' : 'var(--bad)'}">${r.ok ? ICON.check + 'Correct!' : ICON.cross + 'Not quite'}</div>
+        <div style="font-size:14px">${esc(q.exp)}</div><div class="small muted">Chapter ${chOf(q)} · ${esc(D.sec[q.sec].title)}</div>
+        <button class="abtn ghost" type="button" data-act="readabout" id="q-read">${ICON.book} Read about this</button>
+        <button class="abtn" type="button" data-act="next" id="q-next">${r.i + 1 < r.qs.length ? 'Next' : 'Finish'}</button></div>`
+        : `<div class="foot"><button class="abtn" type="button" data-act="check" id="q-check" ${r.pick == null ? 'disabled' : ''}>Check</button></div>`}
+    </div>`;
+  },
+
+  note: () => {
+    const s = S.note, n = D.notes[s], ch = +s[2];
+    const m = S.missed && S.missed.sec === s ? S.missed : null;
+    return `<div class="view note">
+      <div class="top"><button class="icon" type="button" data-act="noteback" aria-label="Back" id="n-back">${ICON.back}</button><b style="flex:1;font-family:var(--display);font-size:16px">Study notes</b></div>
+      <div class="row"><span class="num" style="background:${CHCOL[ch][0]};color:${CHCOL[ch][1]}">${ch}</span><div><div class="small muted">Chapter ${ch} · ${CH[ch]}</div><div class="h" style="font-size:21px;line-height:1.15">${esc(D.sec[s].title)}</div></div></div>
+      ${m ? `<div class="missed" id="n-missed"><b>The fact you missed</b><span style="font-size:13.5px">${esc(m.exp)}</span></div>` : ''}
+      <div>${n.body.split(/\n\n+/).map(p => `<p>${md(p)}</p>`).join('')}</div>
+      <div class="facts" id="n-facts"><b class="h" style="font-size:15px">Key facts</b><ul>${n.facts.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div>
+      <button class="abtn" type="button" data-act="sections" data-arg="${s}">Test yourself on this section</button>
+    </div>`;
+  },
+
+  mocks: () => `<div class="view"><h2 class="h" style="font-size:26px;margin-top:8px">Mock tests</h2>
+      <div class="card" id="m-card"><b class="h" style="font-size:17px">Mock test ${S.mocks.length + 1}</b><span class="muted">24 questions · 45 min · 18 to pass</span>
+        <span class="small muted">In this demo: 6 questions, 6 minutes.</span>
+        <button class="abtn" type="button" data-act="mockstart" id="m-start">Start mock test</button></div>
+      <b class="h" style="font-size:17px">History</b>
+      ${S.mocks.length ? S.mocks.map((m, i) => `<div class="card row" style="justify-content:space-between"><span>Mock test ${i + 1}</span><b>${m.score}/${m.total}</b><span class="pill ${m.pass ? 'pass' : 'fail'}" style="font-size:12px">${m.pass ? 'Passed' : 'Not yet'}</span></div>`).join('')
+        : '<p class="muted" style="text-align:center;margin-top:20px">No mock tests yet. Your first one shows how ready you are.</p>'}
+    </div>${nav('mocks')}`,
+
+  mock: () => {
+    const m = S.mock, q = m.qs[m.i];
+    return `<div class="view">
+      <div class="top"><span class="timer ${m.left < 60 ? 'low' : ''}" id="k-timer">⏱ <span id="k-left">${fmtTime(m.left)}</span></span><b>${m.i + 1} / ${m.qs.length}</b><span style="width:60px"></span></div>
+      <p class="stem">${esc(q.stem)}</p>
+      ${q.opts.map((o, k) => `<button type="button" class="opt ${m.picks[m.i] === k ? 'sel' : ''}" data-act="mpick" data-arg="${k}" id="mopt-${k}"><span>${esc(o.t)}</span><span class="radio"></span></button>`).join('')}
+      <p class="small muted" style="text-align:center;margin-top:auto">No feedback until you finish</p>
+      <div class="foot"><button class="abtn ghost" type="button" data-act="mprev" ${m.i ? '' : 'disabled'}>Previous</button>
+      <button class="abtn" type="button" data-act="mnext" id="k-next">${m.i + 1 < m.qs.length ? 'Next' : 'Finish test'}</button></div>
+    </div>`;
+  },
+
+  results: () => {
+    const m = S.mocks.at(-1);
+    const chs = Object.keys(m.by).map(Number).sort();
+    const weakest = chs.slice().sort((a, b) => m.by[a][0] / m.by[a][1] - m.by[b][0] / m.by[b][1])[0];
+    return `<div class="view">
+      <div class="top"><button class="icon" type="button" data-act="home" aria-label="Close">${ICON.close}</button></div>
+      <div class="small muted" style="text-align:center">Mock test ${S.mocks.length}</div>
+      <div class="score" id="r-score">${m.score} / ${m.total}</div>
+      <span class="pill ${m.pass ? 'pass' : 'fail'}">${m.pass ? '✓ Passed' : 'Not passed yet'}</span>
+      <div class="small muted" style="text-align:center">Time ${fmtTime(m.time)} · Readiness now ${readiness()}%</div>
+      <div class="card" id="r-break"><b class="h" style="font-size:17px">By chapter</b>
+        ${chs.map(c => `<div class="brk"><span>${CH[c]}</span><div class="bar"><b style="width:${100 * m.by[c][0] / m.by[c][1]}%;background:${CHCOL[c][1]}"></b></div><b>${m.by[c][0]}/${m.by[c][1]}</b></div>`).join('')}</div>
+      <div class="tip">${ICON.bulb}<span>Practise ${CH[weakest]} next. It is your weakest chapter.</span></div>
+      <button class="abtn" type="button" data-act="home" style="margin-top:auto" id="r-done">Done</button>
+    </div>`;
+  },
+
+  progress: () => {
+    const pts = S.mocks.map((m, i) => ({ i, v: Math.round(100 * (0.7 * m.score / m.total + 0.3 * accuracy())) }));
+    const W = 290, H = 130, y = v => 12 + (H - 24) * (1 - v / 100);
+    const x = i => pts.length < 2 ? W / 2 : 30 + i * (W - 60) / (pts.length - 1);
+    return `<div class="view"><h2 class="h" style="font-size:26px;margin-top:8px">Progress</h2>
+      <div class="card" id="g-chart"><b class="h" style="font-size:16px">Readiness over time</b>
+        <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Readiness chart">
+          ${[0, 50, 100].map(v => `<line x1="28" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#E2E4DF"/><text x="0" y="${y(v) + 4}" font-size="10" fill="#55686B">${v}%</text>`).join('')}
+          <line x1="28" x2="${W}" y1="${y(75)}" y2="${y(75)}" stroke="#55686B" stroke-dasharray="5 4"/><text x="${W}" y="${y(75) - 5}" font-size="10" fill="#55686B" text-anchor="end">Pass 75%</text>
+          ${pts.length > 1 ? `<polyline fill="none" stroke="#0F6E6E" stroke-width="2.5" points="${pts.map(p => x(p.i) + ',' + y(p.v)).join(' ')}"/>` : ''}
+          ${pts.map(p => `<circle cx="${x(p.i)}" cy="${y(p.v)}" r="5" fill="#0F6E6E"/><text x="${x(p.i)}" y="${y(p.v) - 10}" font-size="11" font-weight="700" text-anchor="middle" fill="#16323A">${p.v}%</text>`).join('')}
+        </svg>${pts.length ? '' : '<span class="small muted">Take a mock test to start your chart.</span>'}</div>
+      <div class="tiles" style="grid-template-columns:1fr 1fr 1fr"><div class="card"><span class="small muted">Streak</span><b class="h" style="font-size:18px">1 day</b></div><div class="card"><span class="small muted">Answered</span><b class="h" style="font-size:18px">${S.answered}</b></div><div class="card"><span class="small muted">Mocks</span><b class="h" style="font-size:18px">${S.mocks.length}</b></div></div>
+      <div class="card" id="g-mastery"><b class="h" style="font-size:16px">Mastery by chapter</b>
+        ${[2, 3, 4, 5].map(c => `<div class="brk" style="grid-template-columns:1fr 110px 38px"><span>${CH[c]}</span><div class="bar"><b style="width:${mastery(c)}%;background:${CHCOL[c][1]}"></b></div><b class="pct">${mastery(c)}%</b></div>`).join('')}</div>
+    </div>${nav('progress')}`;
+  }
+};
+
+/* ---------- rendering ---------- */
+let timerId = null;
+function render() {
+  const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  screenEl.innerHTML = `<div class="sb"><span>${time}</span><i>▾ ▴ ▮</i></div>${screens[S.screen]()}${S.end ? endCard() : ''}`;
+  describe();
+}
+function endCard() {
+  return `<div class="end">${logo(110)}<h2>Life in the UK Test Prep</h2><a class="soon" href="https://play.google.com/store/apps/details?id=com.myday.litu" target="_blank" rel="noopener">Get it on Google Play</a><span class="avail">Available now · free to download</span><small>Independent study app. Not affiliated with the Home Office.</small></div>`;
+}
+const DESCRIBE = {
+  welcome: ['Welcome', 'Onboarding explains the real test: 24 questions in 45 minutes, 18 to pass.'],
+  home: ['Home', 'Readiness score, today\'s goal and a study plan built from your weakest sections.'],
+  practice: ['Practice', 'Practise by chapter, review your mistakes or mix it up. Bars show mastery per chapter.'],
+  question: ['Question', 'Pick an answer and press Check. Wrong answers show why, with a link to the fact you missed.'],
+  note: ['Study notes', 'Short notes for every handbook section, with key facts and the fact you just missed.'],
+  mocks: ['Mock tests', 'Full mock tests like the real one. Results are saved so you can see your progress.'],
+  mock: ['Mock test', 'Timed, with no feedback until you finish, just like the real test.'],
+  results: ['Results', 'Your score, pass or fail, and which chapters cost you marks.'],
+  progress: ['Progress', 'Readiness over time and mastery for each chapter in the test.']
+};
+function describe() {
+  const [t, d] = DESCRIBE[S.screen];
+  $('#now').innerHTML = `<span class="eyebrow">You are on</span><b>${t}</b><span class="fine" style="font-size:14px">${d}</span>`;
+  if (!tour.on) setCaption('Try it yourself', d);
+}
+function setCaption(t, d) { $('#caption').innerHTML = `<b>${esc(t)}</b>${esc(d)}`; }
+function toast(msg) {
+  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; screenEl.appendChild(t);
+  setTimeout(() => t.remove(), 2000);
+}
+function go(screen) { S.screen = screen; render(); const v = screenEl.querySelector('.view'); if (v) v.scrollTop = 0; }
+
+/* ---------- actions ---------- */
+const shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(v => v[1]);
+function startRun(qs, label) {
+  if (!qs.length) { toast('No questions here in this demo'); return; }
+  S.run = { qs, i: 0, pick: null, checked: false, ok: false, label: label || '', order: shuffle(qs[0].opts.map((_, k) => k)) };
+  go('question');
+}
+function startMock() {
+  const qs = shuffle(Q.filter(q => q.sec !== 'CH3-C20')).slice(0, 6);
+  S.mock = { qs, i: 0, picks: [], left: 360, start: Date.now() };
+  clearInterval(timerId);
+  timerId = setInterval(() => {
+    if (S.screen !== 'mock') return;
+    S.mock.left = Math.max(0, S.mock.left - 1);
+    const el = $('#k-left'); if (el) el.textContent = fmtTime(S.mock.left);
+    if (!S.mock.left) finishMock();
+  }, 1000);
+  go('mock');
+}
+function finishMock() {
+  clearInterval(timerId);
+  const m = S.mock, by = {};
+  let score = 0;
+  m.qs.forEach((q, i) => {
+    const ok = m.picks[i] != null && q.opts[m.picks[i]].ok;
+    if (ok) score++;
+    record(q, ok);
+    const c = chOf(q); by[c] = by[c] || [0, 0]; by[c][1]++; if (ok) by[c][0]++;
+  });
+  S.mocks.push({ score, total: m.qs.length, pass: score / m.qs.length >= 0.75, by, time: 360 - m.left });
+  go('results');
+}
+const ACT = {
+  start: () => go('home'),
+  tab: t => go(t),
+  home: () => { clearInterval(timerId); go('home'); },
+  mixed: () => startRun(shuffle(Q).slice(0, 5)),
+  review: () => startRun(Q.filter(q => S.last[q.id] === false), 'Review · '),
+  chapter: c => startRun(shuffle(Q.filter(q => chOf(q) === +c)).slice(0, 5), `${CH[c]} · `),
+  sections: s => startRun(Q.filter(q => s.split(',').includes(q.sec))),
+  pick: k => { S.run.pick = +k; render(); },
+  check: () => {
+    const r = S.run, q = r.qs[r.i];
+    r.checked = true; r.ok = q.opts[r.pick].ok; record(q, r.ok);
+    if (!r.ok) S.missed = q;
+    render();
+  },
+  next: () => {
+    const r = S.run;
+    if (r.i + 1 >= r.qs.length) { go('home'); toast(`Session done: ${r.qs.filter(q => S.last[q.id]).length} of ${r.qs.length} right`); return; }
+    r.i++; r.pick = null; r.checked = false; r.order = shuffle(r.qs[r.i].opts.map((_, k) => k)); render();
+  },
+  readabout: () => { const q = S.run.qs[S.run.i]; if (S.run.ok) S.missed = null; S.note = q.sec; S.from = 'question'; go('note'); },
+  note: s => { S.note = s; S.from = 'home'; go('note'); },
+  noteback: () => go(S.from === 'question' && S.run ? 'question' : 'home'),
+  mockstart: () => startMock(),
+  mpick: k => { S.mock.picks[S.mock.i] = +k; render(); },
+  mprev: () => { S.mock.i--; render(); },
+  mnext: () => { if (S.mock.i + 1 < S.mock.qs.length) { S.mock.i++; render(); } else finishMock(); }
+};
+screenEl.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled) return;
+  if (tour.on && e.isTrusted) stopTour();
+  ACT[b.dataset.act](b.dataset.arg);
+});
+
+/* ---------- tour ---------- */
+const tour = { on: false, step: 0, token: 0 };
+const sleep = (ms, tk) => new Promise((res, rej) => setTimeout(() => (tk === tour.token ? res() : rej('stop')), ms));
+function reveal(el) {
+  const v = el.closest('.view'); if (!v) return;
+  const a = v.getBoundingClientRect(), b = el.getBoundingClientRect();
+  if (b.top < a.top) v.scrollTop -= a.top - b.top + 8;
+  else if (b.bottom > a.bottom) v.scrollTop += b.bottom - a.bottom + 8;
+}
+function hl(sel) {
+  screenEl.querySelectorAll('.ring-hl').forEach(n => n.remove());
+  if (!sel) return;
+  const el = screenEl.querySelector(sel); if (!el) return;
+  reveal(el);
+  const a = screenEl.getBoundingClientRect(), b = el.getBoundingClientRect();
+  const r = document.createElement('div'); r.className = 'ring-hl';
+  Object.assign(r.style, { left: b.left - a.left - 5 + 'px', top: b.top - a.top - 5 + 'px', width: b.width + 10 + 'px', height: b.height + 10 + 'px' });
+  screenEl.appendChild(r);
+}
+async function tap(sel, tk) {
+  const el = screenEl.querySelector(sel); if (!el) return;
+  reveal(el);
+  const a = screenEl.getBoundingClientRect(), b = el.getBoundingClientRect();
+  const d = document.createElement('div'); d.className = 'tap';
+  Object.assign(d.style, { left: b.left - a.left + b.width / 2 + 'px', top: b.top - a.top + b.height / 2 + 'px' });
+  screenEl.appendChild(d);
+  await sleep(450, tk); d.remove(); el.click();
+  await sleep(350, tk);
+}
+const NHS = Q.find(q => q.id === 'Q-CH3-C20-007');
+const STEPS = [
+  { t: 'The real test, explained', d: 'The test is 24 questions in 45 minutes, and you need 18 right. The app is built around that.',
+    run: async tk => { fresh(); S.end = false; go('welcome'); hl('#w-text'); await sleep(4200, tk); hl(); await tap('#w-go', tk); } },
+  { t: 'Your readiness score', d: 'One number shows how close you are to the 75% pass mark. It fills in after your first mock test.',
+    run: async tk => { hl('#h-ready'); await sleep(4200, tk); } },
+  { t: 'A plan for today', d: 'Every day the app builds a short plan from the sections you find hardest: read, practise, review.',
+    run: async tk => { hl('#h-plan'); await sleep(4500, tk); hl(); } },
+  { t: 'Practise and get it wrong', d: 'Here we pick the wrong year for the NHS on purpose, to show what happens next.',
+    run: async tk => {
+      S.run = { qs: [NHS], i: 0, pick: null, checked: false, ok: false, label: 'History · ', order: [1, 2, 0, 3] }; go('question');
+      await sleep(2200, tk); const wrong = NHS.opts.findIndex(o => o.t === '1945'); await tap('#opt-' + wrong, tk); await sleep(700, tk); await tap('#q-check', tk); } },
+  { t: 'See why, straight away', d: 'You see your answer, the correct one and a plain explanation of the fact behind it.',
+    run: async tk => { hl('#q-sheet'); await sleep(4500, tk); hl(); } },
+  { t: 'Read about this', d: 'One tap opens the study note for that section, with the fact you missed at the top.',
+    run: async tk => { await tap('#q-read', tk); hl('#n-missed'); await sleep(3800, tk); hl('#n-facts'); await sleep(3200, tk); hl(); } },
+  { t: 'Mock tests like the real one', d: 'Timed, with no feedback until the end. The full app uses 24 questions and 45 minutes.',
+    run: async tk => {
+      await tap('#n-back', tk); S.run = null; go('mocks'); await sleep(900, tk); hl('#m-card'); await sleep(2800, tk); hl(); await tap('#m-start', tk);
+      for (let i = 0; i < 6; i++) {
+        const q = S.mock.qs[i]; const k = i === 3 ? q.opts.findIndex(o => !o.ok) : q.opts.findIndex(o => o.ok);
+        await sleep(i ? 500 : 1500, tk); await tap('#mopt-' + k, tk); await sleep(300, tk); await tap('#k-next', tk);
+      } } },
+  { t: 'Know where you stand', d: 'Your score, pass or fail, and a breakdown by chapter that tells you what to practise next.',
+    run: async tk => { hl('#r-score'); await sleep(2600, tk); hl('#r-break'); await sleep(3600, tk); hl(); } },
+  { t: 'Track your progress', d: 'Readiness over time and mastery for every chapter, so you can see yourself getting closer.',
+    run: async tk => { go('progress'); hl('#g-chart'); await sleep(3200, tk); hl('#g-mastery'); await sleep(3200, tk); hl(); } },
+  { t: 'Get it on Google Play', d: 'Life in the UK Test Prep is available now on Google Play. Free to download.',
+    run: async tk => { S.end = true; render(); await sleep(4000, tk); } }
+];
+function drawSteps() {
+  $('#steps').innerHTML = STEPS.map((s, i) => `<li class="${i === tour.step && tour.on ? 'on' : ''} ${i < tour.step ? 'done' : ''}" data-i="${i}"><div><strong>${esc(s.t)}</strong><span>${esc(s.d)}</span></div></li>`).join('');
+}
+$('#steps').addEventListener('click', e => { const li = e.target.closest('li'); if (li) playFrom(+li.dataset.i); });
+async function playFrom(i) {
+  const tk = ++tour.token; tour.on = true; tour.step = i; $('#play').textContent = '❚❚ Pause';
+  if (i > 0 && S.screen === 'welcome') { fresh(); go('home'); }
+  try {
+    for (; tour.step < STEPS.length; tour.step++) {
+      drawSteps(); setCaption(STEPS[tour.step].t, STEPS[tour.step].d);
+      await STEPS[tour.step].run(tk);
+    }
+    tour.on = false; tour.step = 0; $('#play').textContent = '▶ Play again';
+  } catch (e) { if (e !== 'stop') throw e; }
+  drawSteps();
+}
+function stopTour() { tour.token++; tour.on = false; hl(); $('#play').textContent = '▶ Resume tour'; drawSteps(); describe(); }
+$('#play').addEventListener('click', () => (tour.on ? stopTour() : playFrom(tour.step)));
+$('#restart').addEventListener('click', () => { stopTour(); clearInterval(timerId); fresh(); tour.step = 0; $('#play').textContent = '▶ Play tour'; render(); drawSteps(); });
+$('#video').addEventListener('click', () => { document.body.classList.add('video'); playFrom(0); });
+$('#exitv').addEventListener('click', () => document.body.classList.remove('video'));
+window.addEventListener('resize', () => { if (!tour.on) hl(); });
+
+render(); drawSteps();
+// Tell the framing page how tall the demo is.
+if (window.parent !== window) {
+  const post = () => parent.postMessage({ demoHeight: document.documentElement.scrollHeight }, location.origin);
+  new ResizeObserver(post).observe(document.body); post();
+}
+})();
+</script>
+</body>
+</html>
