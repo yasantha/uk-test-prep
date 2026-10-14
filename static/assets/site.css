@@ -98,6 +98,8 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 .badge-link { display: inline-block; line-height: 0; margin: -12px; }
 .badge-link img { height: 82px; width: auto; }
+.ph-badge { margin: 16px 0 0; line-height: 0; }
+.ph-badge img { height: auto; max-width: 100%; }
 .btn { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--teal); color: var(--teal); text-decoration: none; font-family: var(--display); font-weight: 700; padding: 12px 20px; border-radius: 999px; background: transparent; }
 .btn:hover { background: var(--teal-soft); }
 .note { font-size: 0.9rem; color: var(--muted); }
