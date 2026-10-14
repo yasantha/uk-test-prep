@@ -15,6 +15,8 @@ import re
 import shutil
 from pathlib import Path
 
+import seo_pages
+
 ROOT = Path(__file__).parent
 PAGES = ROOT / "pages"
 OUT = ROOT / "docs"
@@ -115,6 +117,8 @@ FOOTER = f"""<footer class="site-foot">
         <li><a href="/demo/">Interactive demo</a></li>
         <li><a href="/practice-questions/">Free practice questions</a></li>
         <li><a href="/study-guide/">Study guide</a></li>
+        <li><a href="/life-in-the-uk-test-guides/">Chapter guides</a></li>
+        <li><a href="/life-in-the-uk-test-pass-mark/">Pass mark and format</a></li>
         <li><a href="/faq/">FAQ</a></li>
       </ul>
     </div>
@@ -247,6 +251,52 @@ def questions_page() -> tuple[str, list]:
     return body, [ld]
 
 
+
+# ---------------------------------------------------------------- guide pages (seo_pages.py)
+def related_block(current: str) -> str:
+    items = [(f"/{c['slug']}/", f"Chapter {c['n']}: {c['name']}") for c in seo_pages.CHAPTERS]
+    items += [(f"/{t['slug']}/", t["crumb"]) for t in seo_pages.TOPICS]
+    lis = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for u, n in items if u != current)
+    return f'<div class="callout"><p><b>More Life in the UK Test guides</b></p><ul class="related">{lis}</ul></div>'
+
+
+def article_ld(path: str, headline: str, desc: str) -> dict:
+    return {"@type": "Article", "headline": headline, "description": desc, "inLanguage": "en-GB",
+            "author": {"@id": f"{SITE}/#org"}, "publisher": {"@id": f"{SITE}/#org"}, "dateModified": TODAY,
+            "mainEntityOfPage": SITE + path, "image": f"{SITE}/assets/img/og-image.png"}
+
+
+def faq_ld(pairs: list[tuple[str, str]]) -> dict:
+    return {"@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in pairs]}
+
+
+def guide_body(h1: str, lead: str, eyebrow: str, body: str, faq: list, path: str, extra: str = "") -> str:
+    items = "\n".join(f"<details><summary>{esc(q)}</summary><div><p>{a}</p></div></details>" for q, a in faq)
+    return f"""<div class="wrap page-head"><p class="eyebrow">{esc(eyebrow)}</p><h1>{esc(h1)}</h1>
+<p class="lead">{esc(lead)}</p></div>
+<section style="padding-top:24px"><div class="wrap"><article class="prose">
+{body}
+{extra}
+<h2>Quick questions</h2>
+<div class="faq">{items}</div>
+{related_block(path)}
+</article></div></section>
+{CTA}"""
+
+
+def chapter_questions(n: int) -> str:
+    qs = [q for q in json.loads((PAGES / "practice-questions.json").read_text()) if q["ch"] == n]
+    if not qs:
+        return ""
+    cards = []
+    for q in qs:
+        right = next(o for o in q["opts"] if o["ok"])
+        opts = "".join(f'<li>{esc(o["t"])}</li>' for o in q["opts"])
+        cards.append(f'<li class="q"><h3 class="qh">{esc(q["stem"])}</h3><ul class="plainopts">{opts}</ul>'
+                     f'<details><summary>Show answer</summary><div><p><b>{esc(right["t"])}</b></p><p>{esc(q["exp"])}</p></div></details></li>')
+    return f'<h2>Practice questions from this chapter</h2><ol class="qlist">{"".join(cards)}</ol><p>The app has many more for every chapter. Try the <a href="/practice-questions/">20 free questions</a> too.</p>'
+
 # ---------------------------------------------------------------- page list
 def page_body(name: str) -> str:
     return (PAGES / f"{name}.html").read_text()
@@ -294,6 +344,31 @@ def build() -> None:
     write("/faq/", "Life in the UK Test Prep FAQ: the Test and the App",
           "Answers to common questions about the Life in the UK Test (24 questions, 45 minutes, 75% to pass) and the Life in the UK Test Prep app.",
           "/faq/", body, ld, crumb="FAQ")
+
+    # long-tail guide pages
+    hub_items = []
+    for c in seo_pages.CHAPTERS:
+        path = f"/{c['slug']}/"
+        faq = [(q, a) for q, a in c["quick"]]
+        body = guide_body(f"Life in the UK Test chapter {c['n']}: {c['name']}", c["lead"], f"Chapter {c['n']} guide",
+                          c["body"], faq, path, chapter_questions(c["n"]) if c["n"] > 1 else "")
+        write(path, c["title"], c["desc"], "", body,
+              [article_ld(path, c["title"], c["desc"]), faq_ld(faq)], crumb=f"Chapter {c['n']}", priority="0.8")
+        hub_items.append((path, f"Chapter {c['n']}: {c['name']}", c["lead"]))
+    for t in seo_pages.TOPICS:
+        path = f"/{t['slug']}/"
+        body = guide_body(t["h1"], t["lead"], "Guide", t["body"], t["faq"], path)
+        write(path, t["title"], t["desc"], "", body,
+              [article_ld(path, t["title"], t["desc"]), faq_ld(t["faq"])], crumb=t["crumb"], priority="0.8")
+        hub_items.append((path, t["crumb"], t["lead"]))
+    cards = "".join(f'<li><a href="{u}"><b>{esc(n)}</b><span>{esc(d)}</span></a></li>' for u, n, d in hub_items)
+    hub = seo_pages.HUB
+    hbody = f"""<div class="wrap page-head"><p class="eyebrow">Guides</p><h1>Life in the UK Test guides</h1>
+<p class="lead">Short guides to each handbook chapter and to the test itself: format, booking, retakes and how long to study.</p></div>
+<section style="padding-top:24px"><div class="wrap"><ul class="guidegrid">{cards}</ul></div></section>
+{CTA}"""
+    write(f"/{hub['slug']}/", hub["title"], hub["desc"], "", hbody, [], crumb="Guides", priority="0.9")
+
     for slug, title, desc, crumb in [
         ("privacy-policy", f"Privacy Policy: {APP}", f"How {APP} handles your information: data on your device, optional backup, analytics, crash reports and ads.", "Privacy policy"),
         ("delete-account", f"Delete Your Account and Data: {APP}", f"How to delete your {APP} account and data, in the app or by email.", "Delete your data"),
