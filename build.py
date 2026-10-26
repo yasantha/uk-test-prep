@@ -324,17 +324,17 @@ def build() -> None:
         if in_sitemap:
             sitemap.append((SITE + path, priority))
 
-    write("/", f"{APP}: Practice Questions and Mock Tests App",
-          "Practise for the Life in the UK Test with 770+ questions, timed mock tests just like the real one (24 questions, 45 minutes) and a daily study plan. Free Android app that works offline.",
+    write("/", f"{APP}: Practice Questions & Mock Tests",
+          "Practise for the Life in the UK Test with 770+ questions and timed mock tests (24 questions, 45 minutes). Free Android app with a daily study plan.",
           "/", page_body("home"), [APP_LD], priority="1.0")
-    write("/demo/", f"Try {APP} in your browser: interactive demo",
+    write("/demo/", f"{APP} Demo: Try Mock Test Questions Free",
           "Try the Life in the UK Test Prep app in your browser. Answer real practice questions, read the explanations and study notes, and take a short timed mock test.",
           "/demo/", page_body("demo"), [], crumb="Interactive demo")
     body, ld = questions_page()
-    write("/practice-questions/", "Life in the UK Test Practice Questions: 20 Free Questions with Answers",
+    write("/practice-questions/", "Life in the UK Test Practice Questions: 20 Free with Answers",
           "Try 20 free Life in the UK Test practice questions with answers and explanations, covering history, the UK today, government and the law. 770+ more in the app.",
           "/practice-questions/", body, ld, crumb="Practice questions", priority="0.9")
-    write("/study-guide/", "How to Pass the Life in the UK Test: Study Guide and 4-Week Plan",
+    write("/study-guide/", "How to Pass the Life in the UK Test: 4-Week Study Plan",
           "How the Life in the UK Test works, what each handbook chapter covers, a simple 4-week study plan and tips for test day.",
           "/study-guide/", page_body("study-guide"), [{"@type": "Article", "headline": "How to pass the Life in the UK Test: study guide and 4-week plan",
           "inLanguage": "en-GB", "author": {"@id": f"{SITE}/#org"}, "publisher": {"@id": f"{SITE}/#org"}, "dateModified": TODAY,
@@ -364,7 +364,7 @@ def build() -> None:
     cards = "".join(f'<li><a href="{u}"><b>{esc(n)}</b><span>{esc(d)}</span></a></li>' for u, n, d in hub_items)
     hub = seo_pages.HUB
     hbody = f"""<div class="wrap page-head"><p class="eyebrow">Guides</p><h1>Life in the UK Test guides</h1>
-<p class="lead">Short guides to each handbook chapter and to the test itself: format, booking, retakes and how long to study.</p></div>
+<p class="lead">Short guides to each handbook chapter and to the test itself: format, cost, booking, exemptions, results, retakes and how long to study.</p></div>
 <section style="padding-top:24px"><div class="wrap"><ul class="guidegrid">{cards}</ul></div></section>
 {CTA}"""
     write(f"/{hub['slug']}/", hub["title"], hub["desc"], "", hbody, [], crumb="Guides", priority="0.9")

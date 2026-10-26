@@ -13,8 +13,8 @@ CHAPTERS = [
     dict(
         n=1, slug="life-in-the-uk-test-chapter-1-values-and-principles",
         name="The values and principles of the UK",
-        title="Life in the UK Test Chapter 1: Values and Principles of the UK",
-        desc="Chapter 1 of the Life in the UK handbook explained: democracy, the rule of law, individual liberty, tolerance and taking part in community life. Is it in the test?",
+        title="Life in the UK Test Chapter 1: Values and Principles",
+        desc="Chapter 1 of the Life in the UK handbook explained: democracy, the rule of law, liberty, tolerance and community life. Is it in the test?",
         lead="Chapter 1 is short and sets out the values the rest of the handbook builds on. Here is what it says and how to use it.",
         body="""
 <h2>Is chapter 1 in the test?</h2>
@@ -41,8 +41,8 @@ CHAPTERS = [
     dict(
         n=2, slug="life-in-the-uk-test-chapter-2-what-is-the-uk",
         name="What is the UK?",
-        title="Life in the UK Test Chapter 2: What is the UK? Key Facts and Practice",
-        desc="Key facts from chapter 2 of the Life in the UK handbook: the four countries, capitals, patron saints, flags and devolution, with practice questions and answers.",
+        title="Life in the UK Test Chapter 2: What is the UK? Key Facts",
+        desc="Key facts from chapter 2 of the Life in the UK handbook: the four countries, capitals, patron saints, flags and devolution, with practice questions.",
         lead="Chapter 2 covers the geography and make-up of the UK. It is short, and the questions are very learnable.",
         body="""
 <h2>UK, Great Britain and the British Isles</h2>
@@ -85,8 +85,8 @@ CHAPTERS = [
     dict(
         n=3, slug="life-in-the-uk-test-chapter-3-history",
         name="A long and illustrious history",
-        title="Life in the UK Test Chapter 3: British History Key Dates and Practice Questions",
-        desc="A clear timeline for chapter 3 of the Life in the UK handbook: Romans, Normans, Tudors, Stuarts, the Industrial Revolution, two world wars and modern Britain, with practice questions.",
+        title="Life in the UK Test Chapter 3: British History Key Dates",
+        desc="A clear timeline for chapter 3 of the Life in the UK handbook: Romans, Normans, Tudors, Stuarts, two world wars and modern Britain, with practice questions.",
         lead="History is the longest chapter and where most people lose marks. Learn it as a timeline, not as separate dates.",
         body="""
 <h2>An overview timeline</h2>
@@ -131,7 +131,7 @@ CHAPTERS = [
     dict(
         n=4, slug="life-in-the-uk-test-chapter-4-modern-society",
         name="A modern, thriving society",
-        title="Life in the UK Test Chapter 4: Modern Society, Festivals and Culture",
+        title="Life in the UK Test Chapter 4: Modern Society and Culture",
         desc="Chapter 4 of the Life in the UK handbook explained: religion, customs and festivals, sport, arts and famous places, with key facts and practice questions.",
         lead="Chapter 4 describes everyday life, traditions and culture. Dates of festivals and famous names are the main things to learn.",
         body="""
@@ -176,8 +176,8 @@ CHAPTERS = [
     dict(
         n=5, slug="life-in-the-uk-test-chapter-5-government-law-and-your-role",
         name="The UK government, the law and your role",
-        title="Life in the UK Test Chapter 5: Government, the Law and Your Role",
-        desc="Chapter 5 of the Life in the UK handbook explained: the monarchy, Parliament, elections, the courts, rights and responsibilities, with key facts and practice questions.",
+        title="Life in the UK Test Chapter 5: Government and the Law",
+        desc="Chapter 5 of the Life in the UK handbook explained: the monarchy, Parliament, elections, courts, rights and responsibilities, with practice questions.",
         lead="Chapter 5 explains how the UK is governed and what is expected of residents and citizens. The facts are precise, so learn the numbers.",
         body="""
 <h2>The constitution and the monarchy</h2>
@@ -217,7 +217,7 @@ CHAPTERS = [
 TOPICS = [
     dict(
         slug="life-in-the-uk-test-pass-mark",
-        title="Life in the UK Test Pass Mark: How Many Questions and How Long?",
+        title="Life in the UK Test Pass Mark, Questions and Time Limit",
         desc="The Life in the UK Test has 24 questions, lasts 45 minutes and the pass mark is 75% (18 correct). See the question types and what a good mock score looks like.",
         h1="Life in the UK Test pass mark, questions and time",
         crumb="Pass mark and format",
@@ -255,11 +255,20 @@ TOPICS = [
 <ol>
 <li>Go to the official <a href="%(gov)s">GOV.UK Life in the UK Test page</a> and start the booking. Use only GOV.UK. Other sites may charge extra or are not official.</li>
 <li>Create an account and choose a test centre, date and time.</li>
-<li>Pay the test fee. The fee can change, so check the current amount on GOV.UK.</li>
+<li>Pay the test fee. It is £50 at the time of writing; check the current amount on GOV.UK. Book at least 3 days before the test date.</li>
 <li>Save your booking confirmation and check what identification you must bring.</li>
 </ol>
 <h2>What to bring</h2>
-<p>You must bring the identification you used when booking. If it does not match, or you do not have it, you may be refused entry and lose your fee. GOV.UK lists exactly which documents are accepted, so read it a few days before the test. Take any other items GOV.UK tells you to bring and leave unnecessary things at home.</p>
+<p>You must bring the <b>same identification you used when booking</b>, in its original form. Copies and phone screenshots are not accepted, and the name on your booking must match your ID exactly. If it does not, you will not be allowed to sit the test and you will not get a refund.</p>
+<p>According to GOV.UK, accepted identification includes:</p>
+<ul>
+<li>an <b>eVisa share code</b>, if you have an eVisa</li>
+<li>a valid <b>passport</b></li>
+<li>a valid national identity card from an EU country, Switzerland, Iceland, Liechtenstein or Norway</li>
+<li>a valid photo travel document (not an emergency travel document)</li>
+<li>a biometric residence permit or card, within the time limits GOV.UK sets</li>
+</ul>
+<p>Your photo is taken at the test centre. Children and other family members cannot come into the centre with you. Check the full, current list on GOV.UK a few days before your test.</p>
 <h2>On the day</h2>
 <ul>
 <li>Arrive early. Test centres have identity checks before you start.</li>
@@ -274,20 +283,21 @@ TOPICS = [
 """.replace("%(gov)s", GOV),
         faq=[
             ("Where do I book the Life in the UK Test?", "On the official GOV.UK Life in the UK Test page. Do not use unofficial booking sites."),
-            ("What should I bring to the Life in the UK Test?", "The identification you used when you booked. GOV.UK lists the accepted documents."),
+            ("What should I bring to the Life in the UK Test?", "The original identification you used when you booked, such as your passport or eVisa share code. The name must match your booking exactly. Copies and screenshots are not accepted."),
+            ("Can I cancel my Life in the UK Test and get a refund?", "Yes, if you cancel at least 72 hours (3 days) before the test. Cancelling or changing it later than that means no refund."),
             ("Do I get my result straight away?", "Yes. You see your result before you leave the test centre."),
         ],
     ),
     dict(
         slug="life-in-the-uk-test-retake-rules",
-        title="Failed the Life in the UK Test? Retake Rules and What to Do Next",
+        title="Failed the Life in the UK Test? Retake Rules and Next Steps",
         desc="What happens if you fail the Life in the UK Test: you can retake it, how soon, what it costs and how to fix your weak areas before the next attempt.",
         h1="Failed the Life in the UK Test? Retake rules and next steps",
         crumb="Retake rules",
         lead="Failing is common and not the end. You can take the test again. Here is what to do.",
         body="""
 <h2>Can I retake the test?</h2>
-<p>Yes. You can retake the Life in the UK Test as many times as you need. You must book and pay again each time, and there is a minimum wait between attempts. At the time of writing it is at least 7 days, but check the <a href="%(gov)s">GOV.UK Life in the UK Test page</a> for the current rules and fee.</p>
+<p>Yes. You can retake the Life in the UK Test as many times as you need. You must book and pay the £50 fee again each time, and you must book at least 3 days before the test. GOV.UK does not set a separate waiting period between attempts, but rules can change, so check the <a href="%(gov)s">GOV.UK Life in the UK Test page</a> before you rebook. Read our guide to the <a href="/life-in-the-uk-test-cost/">test cost, refunds and rebooking</a>.</p>
 <h2>How to improve before the next attempt</h2>
 <ol>
 <li><b>Find your weak chapter.</b> Most people lose marks in history (chapter 3). Check which chapter your wrong answers came from.</li>
@@ -308,12 +318,12 @@ TOPICS = [
 """.replace("%(gov)s", GOV),
         faq=[
             ("Can I retake the Life in the UK Test if I fail?", "Yes, as many times as needed. You book and pay again each time."),
-            ("How long must I wait to retake the test?", "There is a minimum wait between attempts. At the time of writing it is at least 7 days. Check GOV.UK for the current rule."),
+            ("How long must I wait to retake the test?", "GOV.UK does not set a waiting period between attempts, but every booking must be made at least 3 days before the test, and you pay the £50 fee each time."),
         ],
     ),
     dict(
         slug="life-in-the-uk-test-for-ilr-and-citizenship",
-        title="Life in the UK Test for ILR and British Citizenship: Who Needs It?",
+        title="Life in the UK Test for ILR and Citizenship: Who Needs It?",
         desc="Who needs to pass the Life in the UK Test for indefinite leave to remain (settlement) or British citizenship, who is exempt, and what else you may need.",
         h1="Life in the UK Test for ILR and British citizenship",
         crumb="ILR and citizenship",
@@ -380,10 +390,108 @@ TOPICS = [
             ("How do I know I am ready for the test?", "When you score 21 or more out of 24 in several timed mock tests in a row."),
         ],
     ),
+    dict(
+        slug="life-in-the-uk-test-cost",
+        title="Life in the UK Test Cost 2026: £50 Fee, Refunds, Rebooking",
+        desc="The Life in the UK Test costs £50. When you can get a refund, what happens if you cancel or rebook, and how to avoid paying twice.",
+        h1="How much does the Life in the UK Test cost?",
+        crumb="Test cost and refunds",
+        lead="The test fee is £50, paid when you book on GOV.UK. Here is when you can get it back and how to avoid paying twice.",
+        body="""
+<div class="facts facts-3" aria-label="Test cost">
+<div><b>£50</b><span>test fee</span></div>
+<div><b>3 days</b><span>minimum notice to book</span></div>
+<div><b>72 hours</b><span>notice to cancel for a refund</span></div>
+</div>
+<h2>The fee</h2>
+<p>It costs <b>£50</b> to book the Life in the UK Test. You pay online when you book through the official <a href="%(gov)s">GOV.UK Life in the UK Test page</a>. If you need to take the test again, you pay the £50 fee again each time. Fees can change, so always check the current amount on GOV.UK before you book.</p>
+<h2>Book only on GOV.UK</h2>
+<p>Some websites offer to book the test for you or charge a "booking fee". You do not need them. The official booking service is on GOV.UK, and booking there costs only the test fee.</p>
+<h2>Cancelling and refunds</h2>
+<ul>
+<li>Cancel <b>at least 72 hours (3 days)</b> before your test and you get a refund to the card you paid with.</li>
+<li>If you cancel or rearrange your test <b>less than 3 days</b> before it, you do not get a refund.</li>
+<li>If the <b>test centre cancels</b>, you can ask for a refund within 3 months of the test date.</li>
+</ul>
+<h2>When you will not get your money back</h2>
+<p>GOV.UK says you will not get a refund if you cannot take the test because:</p>
+<ul>
+<li>you bring the wrong identification, or the name on your booking does not exactly match your ID</li>
+<li>you arrive late or do not turn up</li>
+<li>you are ill on the day</li>
+<li>you refuse to have your photo taken at the centre</li>
+</ul>
+<p>Double-check your ID and booking name against our <a href="/life-in-the-uk-test-booking-and-what-to-bring/">booking and what to bring guide</a> before the day.</p>
+<h2>The cheapest way to pass: once</h2>
+<p>Every failed attempt costs another £50. Practise with timed mock tests until you score <b>21 or more out of 24</b> three times in a row, then book. Start with our <a href="/practice-questions/">free practice questions</a>.</p>
+""".replace("%(gov)s", GOV),
+        faq=[
+            ("How much does the Life in the UK Test cost?", "£50, paid when you book on GOV.UK. Check GOV.UK for the current fee."),
+            ("Do I pay again if I fail?", "Yes. You pay the £50 fee each time you book the test."),
+            ("Can I get a refund on the Life in the UK Test?", "Yes, if you cancel at least 72 hours before the test, or if the test centre cancels. Not if you cancel later, bring the wrong ID, arrive late or are ill."),
+        ],
+    ),
+    dict(
+        slug="life-in-the-uk-test-exemptions",
+        title="Life in the UK Test Exemptions: Who Doesn't Need to Take It?",
+        desc="Who is exempt from the Life in the UK Test: under 18s, people aged 65 or over, people who have already passed and some with a long-term condition.",
+        h1="Life in the UK Test exemptions: who does not need to take it",
+        crumb="Exemptions",
+        lead="Most adults applying for settlement or citizenship must pass the test, but some people do not need to take it.",
+        body="""
+<h2>You do not need to take the test if you are</h2>
+<ul>
+<li><b>under 18</b></li>
+<li><b>65 or over</b></li>
+<li>someone who has <b>already passed it</b>, for example when you applied for settlement</li>
+<li>someone with a <b>long-term physical or mental condition</b> that stops you taking it</li>
+</ul>
+<h2>Exemption for a long-term condition</h2>
+<p>If a long-term physical or mental condition means you cannot take the test, you must send evidence with your application. GOV.UK says this should be either an <b>exemption form</b> or a <b>letter from a doctor</b> confirming your condition. Check the current form and guidance on the <a href="%(gov)s">GOV.UK Life in the UK Test page</a>.</p>
+<h2>Already passed? You do not take it again</h2>
+<p>If you passed the test for indefinite leave to remain, you do not need to sit it again when you apply for British citizenship. Use the unique reference number you got when you passed. Read more about your <a href="/life-in-the-uk-test-results-and-reference-number/">result and reference number</a>.</p>
+<h2>Need help to take the test instead?</h2>
+<p>Being exempt is different from needing support. If you have a disability, you can ask for reasonable adjustments when you book, such as extra equipment or help getting into the test centre.</p>
+<h2>Other requirements still apply</h2>
+<p>An exemption from the Life in the UK Test does not automatically exempt you from other requirements, such as showing your knowledge of English. Each route has its own rules, so check GOV.UK or ask an immigration adviser regulated in the UK.</p>
+<p><i>This page is general information, not legal advice.</i></p>
+""".replace("%(gov)s", GOV),
+        faq=[
+            ("Who is exempt from the Life in the UK Test?", "People under 18, people aged 65 or over, people who have already passed it, and people with a long-term physical or mental condition who provide an exemption form or a doctor's letter."),
+            ("Do I need to take the test again for citizenship if I passed for ILR?", "No. If you have already passed, you use the same pass and do not take it again."),
+            ("Can I get help to take the test if I have a disability?", "Yes. You can ask for reasonable adjustments, such as extra equipment or help accessing the centre, when you book."),
+        ],
+    ),
+    dict(
+        slug="life-in-the-uk-test-results-and-reference-number",
+        title="Life in the UK Test Results and Unique Reference Number",
+        desc="How you get your Life in the UK Test result, what the unique reference number is, how to use it for ILR or citizenship and what to do if you lose your letter.",
+        h1="Life in the UK Test results and your unique reference number",
+        crumb="Results and reference number",
+        lead="You need 75% to pass. If you pass, you get a unique reference number, which you need for your application.",
+        body="""
+<h2>Getting your result</h2>
+<p>The pass mark is <b>75%</b>, which means at least 18 of the 24 questions correct. You find out your result at the test centre after you finish.</p>
+<h2>Your unique reference number</h2>
+<p>When you pass, you get a <b>unique reference number</b>. You need this number when you apply for <b>indefinite leave to remain (settlement)</b> or <b>British citizenship</b>, so keep it somewhere safe, such as a note on your phone and a printed copy at home.</p>
+<p>If you passed before <b>17 December 2019</b>, you were given a <b>pass notification letter</b> with a test reference ID instead. You use that letter in your application.</p>
+<h2>One pass, two applications</h2>
+<p>If you passed when you applied for settlement, you do not need to take the test again for citizenship. Use the same pass. See who else does not need to sit the test on our <a href="/life-in-the-uk-test-exemptions/">exemptions page</a>.</p>
+<h2>What if I lose my pass letter?</h2>
+<p>If you have lost your pass notification letter, GOV.UK says to write a letter explaining this and send it with your citizenship or settlement application. Include as many details of your test as you can, such as the date and the test centre.</p>
+<h2>If you did not pass</h2>
+<p>You can book again and pay the fee again. Use your result to find your weak areas. Our <a href="/life-in-the-uk-test-retake-rules/">retake guide</a> explains a plan for the next attempt.</p>
+""",
+        faq=[
+            ("When do I get my Life in the UK Test result?", "At the test centre, after you finish the test."),
+            ("What is the Life in the UK Test unique reference number?", "The number you get when you pass. You need it for your settlement or citizenship application."),
+            ("What if I lost my Life in the UK Test pass letter?", "Write a letter explaining that you lost it and send it with your application, as GOV.UK advises."),
+        ],
+    ),
 ]
 
 HUB = dict(
     slug="life-in-the-uk-test-guides",
     title="Life in the UK Test Guides: Chapter Summaries and Answers",
-    desc="Free Life in the UK Test guides: a summary of each handbook chapter, pass mark and format, booking, retake rules, ILR and citizenship and how long to study.",
+    desc="Free Life in the UK Test guides: every handbook chapter, pass mark, cost, booking, exemptions, results, retakes and how long to study.",
 )
